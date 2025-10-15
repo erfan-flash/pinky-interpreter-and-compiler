@@ -150,14 +150,23 @@ class Interpreter:
             loop_env = env.new_environment()
             self.interpret(node.assign , loop_env)
             expr_type, expr = self.interpret(node.expr , loop_env)
-            if expr_type != Type_Number :
-                sys.exit(f"{Colors.Red} asiignmment for for loop was not right")
-            var= loop_env.get_variable(node.assign.left)
+            second_expr_type , second_expr = self.interpret(node.second_expr , loop_env)
+            print(second_expr)
+            if expr_type != Type_Number and second_expr_type != Type_Number :
+                sys.exit(f"{Colors.Red} asignmment for for loop was not right")
+            var_type , var= loop_env.get_variable(node.assign.left.value)
             print(var)
-            while node.assign.right.value <= expr:
-                self.interpret(node.stmts , loop_env)
-                
-                loop_env.set_variable(node.assign.left , var +1)
+            if var >expr:
+                while var >= expr:
+                    self.interpret(node.stmts , loop_env)
+                    var -= second_expr
+                    loop_env.set_variable(node.assign.left.value , (Type_Number , var))
+            else:
+                while var <= expr:
+                    self.interpret(node.stmts , loop_env)
+                    
+                    var += second_expr
+                    loop_env.set_variable(node.assign.left.value , (Type_Number , var))
 
 
     def interpret_ast(self, node):

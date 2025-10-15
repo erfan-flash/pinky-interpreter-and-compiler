@@ -152,9 +152,10 @@ class Parser:
         if self.match(TOK_COMMA):
             second_expr = self.expr()
         else:
-            second_expr = 1
+            second_expr = Integer(1 , self.previous_token().line)
         self.expect(TOK_DO)
         stmts = self.stmts()
+        self.expect(TOK_END)
         return ForStmt(assign , expr, second_expr, stmts , self.previous_token().line)
     def stmt(self):
         if self.peek().token_type == TOK_IF:

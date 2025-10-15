@@ -12,7 +12,7 @@ while i <= 10 do
     println("i = " + i)
     i := i + 1
 end
-
-for p := 1 , 5 do
-    println("Hello world")
+c := 1
+for p := 30 , 10 , 10 do
+    println("Num:" + p)
 end
