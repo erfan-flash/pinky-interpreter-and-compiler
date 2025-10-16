@@ -144,6 +144,7 @@ class Parser:
         stmts = self.stmts()
         self.expect(TOK_END)
         return WhileStmnt(expr , stmts , self.previous_token().line)
+    # for_stmt ::= "for" <Assignment> ""," <expr> ("," <expr>)? "do" <body_stmts> "end"
     def for_stmt(self):
         self.expect(TOK_FOR)
         assign = self.stmt()

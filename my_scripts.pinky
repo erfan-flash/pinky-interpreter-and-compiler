@@ -1,18 +1,30 @@
-x := 0
-x := x + 1
-
-println("The value of the gloabal x is " + x)
-
-if x > 0 then
-    y := x +2
-    println("I have access to the local variable " + y)
-end
-i := 1
-while i <= 10 do
-    println("i = " + i)
-    i := i + 1
-end
-c := 1
-for p := 30 , 10 , 10 do
-    println("Num:" + p)
+leftEdge := -420
+rightEdge := 300
+topEdge := 300
+bottomEdge := -300
+xstep := 7
+ystep := 15
+maxIter := 200
+for y0 := topEdge , bottomEdge , -ystep do
+    for x0 := leftEdge, rightEdge , xstep do
+        y := 0
+        x := 0
+        thechar := " "
+        i := 0 
+        while i < maxIter do
+            x_x := (x * x) / 200
+            y_y := (y * y) / 200
+            if x-x * y_y > 800 then
+                thechar := "" + i 
+                if i > 9 then 
+                    thechar := "@"
+                end
+                i := maxIter
+            end
+            y := x * y / 100 + y0
+            x := x_x - y_y + x0
+        end
+        print(thechar)
+    end
+    print("\n")
 end

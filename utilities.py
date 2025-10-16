@@ -46,6 +46,17 @@ class ASTprinter:
         children = self._get_children(node)
         for child in children :
             self._print_recursive(child , prefix + "  ")
+def stringify(what):
+    if isinstance(what , bool) and what ==True:
+        return "true"
+    elif isinstance(what , bool) and what == False:
+        return "false"
+    
+    elif isinstance(what, float) and what.is_integer():
+        print(what.is_integer())
+        return str(int(what))
+
+    return what
 class ErrorHandler:
     def __init__(self):
         self.lexer_errors = []
