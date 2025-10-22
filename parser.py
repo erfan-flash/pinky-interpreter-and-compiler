@@ -145,6 +145,7 @@ class Parser:
         self.expect(TOK_END)
         return WhileStmnt(expr , stmts , self.previous_token().line)
     # for_stmt ::= "for" <Assignment> ""," <expr> ("," <expr>)? "do" <body_stmts> "end"
+    """
     def for_stmt(self):
         self.expect(TOK_FOR)
         assign = self.stmt()
@@ -158,6 +159,21 @@ class Parser:
         stmts = self.stmts()
         self.expect(TOK_END)
         return ForStmt(assign , expr, second_expr, stmts , self.previous_token().line)
+"""
+    def for_stmt(self):
+        self.expect(TOK_FOR)
+        Identifier = self.primary()
+        self.expect(TOK_ASSIGN)
+        start = self.expr()
+        self.expect(TOK_COMMA)
+        stop= self.expr()
+        if self.match(TOK_COMMA):
+            step = None
+        step = self.expr()
+        self.expect(TOK_DO)
+        stmts = self.stmts()
+        self.expect(TOK_END)
+        return ForStmt(Identifier , start , stop , step , stmts)
     def stmt(self):
         if self.peek().token_type == TOK_IF:
             return self.if_stmt()

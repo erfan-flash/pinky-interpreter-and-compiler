@@ -133,7 +133,7 @@ class IfStmnt(Stmnt):
         super().__init__(line)
     def __repr__(self):
         return f"If Stmt: {self.bool}, then: {self.then_stmts}, else: {self.else_stmts}"
-
+"""
 class ForStmt(Stmnt):
     def __init__(self , assign , expr , second_expr ,stmts, line):
         assert isinstance(assign , Assignment), assign
@@ -147,3 +147,19 @@ class ForStmt(Stmnt):
         super().__init__(line)
     def __repr__(self):
         return f"ForStmt: {self.assign}, {self.expr}, {self.second_expr},Do: {self.stmts} "
+ """
+class ForStmt(Stmnt):
+    def __init__(self, identifier, start, stop, step , stmts):
+        assert isinstance(identifier , Identifire), identifier
+        assert isinstance(start , Expr), start
+        assert isinstance(stop, Expr), stop
+        assert step is None or isinstance(step, Expr), step
+        assert isinstance(stmts , Stmts)
+        self.identifier = identifier
+        self.start = start
+        self.stop = stop 
+        self.step = step
+        self.stmts = stmts
+
+    def __repr__(self):
+        return f"For {self.identifier} = {self.start}, {self.stop}, {self.step} do {self.stmts}"

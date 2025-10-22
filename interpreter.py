@@ -145,7 +145,35 @@ class Interpreter:
                 elif not expr:
                     break
                 self.interpret(node.stmts , loop_env)
-                
+        elif isinstance(node, ForStmt):
+            loop_env = env.new_environment()
+            varname = node.identifier.value
+            start_type, start = self.interpret(node.start , env)
+            stop_type, stop = self.interpret(node.stop , env)
+            if stop_type != Type_Number and start_type != Type_Number:
+                sys.exit("MEEEEWWWWWWW")
+            if  node.step is None:
+                step= 1
+            else: 
+                step_type,step = self.interpret(node.step, env)
+            if start > stop:
+                while start>= stop:
+                    val = (Type_Number, start)
+                    env.set_variable(varname , val)
+                    start -= step
+                    self.interpret(node.stmts, loop_env)
+                    
+                    
+            elif start < stop:
+                while start <= stop:
+                    val = (Type_Number, start)
+                    env.set_variable(varname, val)
+                    start += step
+                    self.interpret(node.stmts , loop_env)
+                    
+                    
+
+    """      
         elif isinstance(node, ForStmt):
             loop_env = env.new_environment()
             self.interpret(node.assign , loop_env)
@@ -167,7 +195,7 @@ class Interpreter:
                     
                     var += second_expr
                     loop_env.set_variable(node.assign.left.value , (Type_Number , var))
-
+"""
 
     def interpret_ast(self, node):
         env = Environment()
