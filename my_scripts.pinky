@@ -23,6 +23,7 @@ for y0 := topEdge , bottomEdge , -ystep do
             end
             y := x * y / 100 + y0
             x := x_x - y_y + x0
+            i := i + 1
         end
         print(thechar)
     end
