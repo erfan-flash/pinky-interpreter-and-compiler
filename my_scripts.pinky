@@ -1,30 +1,33 @@
-leftEdge := -420
-rightEdge := 300
-topEdge := 300
+leftEdge   := -520
+rightEdge  :=  300
+topEdge    :=  300
 bottomEdge := -300
-xstep := 7
-ystep := 15
-maxIter := 200
-for y0 := topEdge , bottomEdge , -ystep do
-    for x0 := leftEdge, rightEdge , xstep do
-        y := 0
-        x := 0
-        thechar := " "
-        i := 0 
-        while i < maxIter do
-            x_x := (x * x) / 200
-            y_y := (y * y) / 200
-            if x-x * y_y > 800 then
-                thechar := "" + i 
-                if i > 9 then 
-                    thechar := "@"
-                end
-                i := maxIter
-            end
-            y := x * y / 100 + y0
-            x := x_x - y_y + x0
+xStep      :=    7
+yStep      :=   15
+maxIter    :=  200
+
+for y0 := topEdge, bottomEdge, yStep do
+  for x0 := leftEdge, rightEdge, xStep do
+  println(y0)
+    y := 0
+    x := 0
+    theChar := ""
+    i := 0
+    while i < maxIter do
+      x_x := (x * x) / 200
+      y_y := (y * y) / 200
+      if x_x + y_y > 800 then
+        theChar := "" + i
+        if i > 9 then
+          theChar := "@"
         end
-        print(thechar)
+        i := maxIter
+      end
+      y := x * y / 100 + y0
+      x := x_x - y_y + x0
+      i := i + 1
     end
-    print("\n")
+    print(theChar)
+  end
+  print('\n')
 end
