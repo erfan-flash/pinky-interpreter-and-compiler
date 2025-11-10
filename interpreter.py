@@ -146,30 +146,30 @@ class Interpreter:
                     break
                 self.interpret(node.stmts , loop_env)
         elif isinstance(node, ForStmt):
-            loop_env = env.new_environment()
-            varname = node.identifier.value
-            start_type, start = self.interpret(node.start , env)
-            stop_type, stop = self.interpret(node.stop , env)
-            if stop_type != Type_Number and start_type != Type_Number:
-                sys.exit("MEEEEWWWWWWW")
-            if  node.step is None:
-                step= 1
-            else: 
-                step_type,step = self.interpret(node.step, env)
-            if start > stop:
-                while start>= stop:
-                    val = (Type_Number, start)
-                    env.set_variable(varname , val)
-                    start -= step
-                    self.interpret(node.stmts, loop_env)
-                    
-                    
-            elif start < stop:
-                while start <= stop:
-                    val = (Type_Number, start)
-                    env.set_variable(varname, val)
-                    start += step
-                    self.interpret(node.stmts , loop_env)
+            varname = node.ident.value
+            itype, i = self.interpret(node.start, env)
+            endtype, end = self.interpret(node.end, env)
+            block_new_env = env.new_environment()
+            if i < end:
+                if node.step is None:
+                    step = 1
+                else:
+                    steptype, step = self.interpret(node.step, env)
+                while i <= end:
+                    newval = (Type_Number, i)
+                    env.set_variable(varname, newval)
+                    self.interpret(node.body_stmts, block_new_env) # pass the new child environment for the scope of the while block
+                    i = i + step
+            else:
+                if node.step is None:
+                    step = -1
+                else:
+                    steptype, step = self.interpret(node.step, env)
+                while i >= end:
+                    newval = (Type_Number, i)
+                    env.set_variable(varname, newval)
+                    self.interpret(node.body_stmts, block_new_env) # pass the new child environment for the scope of the while block
+        
                     
                     
 

@@ -149,17 +149,20 @@ class ForStmt(Stmnt):
         return f"ForStmt: {self.assign}, {self.expr}, {self.second_expr},Do: {self.stmts} "
  """
 class ForStmt(Stmnt):
-    def __init__(self, identifier, start, stop, step , stmts):
-        assert isinstance(identifier , Identifire), identifier
-        assert isinstance(start , Expr), start
-        assert isinstance(stop, Expr), stop
-        assert step is None or isinstance(step, Expr), step
-        assert isinstance(stmts , Stmts)
-        self.identifier = identifier
-        self.start = start
-        self.stop = stop 
-        self.step = step
-        self.stmts = stmts
-
-    def __repr__(self):
-        return f"For {self.identifier} = {self.start}, {self.stop}, {self.step} do {self.stmts}"
+  '''
+  "for" <identifier> ":=" <start> "," <end> ("," <step>)? "do" <body_stmts> "end"
+  '''
+  def __init__(self, ident, start, end, step, body_stmts, line):
+    assert isinstance(ident, Identifire), ident
+    assert isinstance(start, Expr), start
+    assert isinstance(end, Expr), end
+    assert isinstance(step, Expr) or step is None, step
+    assert isinstance(body_stmts, Stmts), body_stmts
+    self.ident = ident
+    self.start = start
+    self.end = end
+    self.step = step
+    self.body_stmts = body_stmts
+    self.line = line
+  def __repr__(self):
+    return f'ForStmt({self.ident}, {self.start}, {self.end}, {self.step}, {self.body_stmts})'
